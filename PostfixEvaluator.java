@@ -39,15 +39,55 @@ public class PostfixEvaluator {
             }
             else if(next.equals("-"))
             {
-                //SUBTRACT
+                if(stack.isEmpty())
+                {
+                    throw new PostFixException("Insufficient operands for addition.");
+                }
+                operand1 = stack.top();
+                stack.pop();
+                if(stack.isEmpty())
+                {
+                    throw new PostFixException("Insufficient operands for addition.");
+                }
+                operand2 = stack.top();
+                stack.pop();
+                stack.push(operand2-operand1);
             }
             else if(next.equals("*"))
             {
-                //MULTIPLY
+                if(stack.isEmpty())
+                {
+                    throw new PostFixException("Insufficient operands for addition.");
+                }
+                operand1 = stack.top();
+                stack.pop();
+                if(stack.isEmpty())
+                {
+                    throw new PostFixException("Insufficient operands for addition.");
+                }
+                operand2 = stack.top();
+                stack.pop();
+                stack.push(operand2*operand1);
             }
             else if(next.equals("/"))
             {
-                //DIVIDE
+                if(stack.isEmpty())
+                {
+                    throw new PostFixException("Insufficient operands for addition.");
+                }
+                operand1 = stack.top();
+                stack.pop();
+                if(stack.isEmpty())
+                {
+                    throw new PostFixException("Insufficient operands for addition.");
+                }
+                operand2 = stack.top();
+                if(operand1==0)
+                {
+                    throw new ArithmeticException("Cannot divide by 0.");
+                }
+                stack.pop();
+                stack.push(operand2/operand1);
             }
             else
             {
@@ -66,6 +106,6 @@ public class PostfixEvaluator {
 
         tokens.close();
         //throw new UnsupportedOperationException("TODO: implement postfix evaluation");
-        return stack.top();
+        return -1;
     }
 }
