@@ -1,0 +1,58 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+/** STUDENT FILE: Complete evaluate. Leave all other project files unchanged. */
+public class PostfixEvaluator {
+    /**
+     * Evaluates a space-separated postfix expression using integer arithmetic.
+     * Supported operators: +, -, *, / (integer division).
+     *
+     * @throws PostFixException for blank, malformed, or invalid expressions
+     * @throws ArithmeticException for division by zero
+     */
+    public static int evaluate(String expression) {
+        ArrayStack<Integer> stack = new ArrayStack<>(100);
+        Scanner tokens = new Scanner(expression);
+        tokens.useDelimiter(" ");
+        while(tokens.hasNext());
+        {
+            String next = tokens.next();
+            if(next.equals("+"))
+            {
+                if(stack.isEmpty())
+                {
+                    throw PostFixException("Insufficient operands for addition.");
+                }
+            }
+            else if(next.equals("-"))
+            {
+                //SUBTRACT
+            }
+            else if(next.equals("*"))
+            {
+                //MULTIPLY
+            }
+            else if(next.equals("/"))
+            {
+                //DIVIDE
+            }
+            else
+            {
+                stack.push(Integer.parseInt(next));
+            }
+        }
+        // TODO 1: Process tokens one at a time.
+        // TODO 2: If a token is an integer, push it onto the stack.
+        // TODO 3: If it is +, -, *, or /, pop two operands.
+        //         IMPORTANT: the first popped number is the RIGHT operand.
+        // TODO 4: Calculate and push the result.
+        // TODO 5: Reject unknown tokens and expressions with too few operands.
+        // TODO 6: After processing, require EXACTLY one result on the stack.
+        //         Catch stack underflow/overflow or check before operations.
+        // Close the Scanner when you are finished.
+
+        tokens.close();
+        //throw new UnsupportedOperationException("TODO: implement postfix evaluation");
+        return stack.pop();
+    }
+}
