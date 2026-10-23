@@ -25,12 +25,14 @@ public class PostfixEvaluator {
             {
                 if(stack.isEmpty())
                 {
+                    tokens.close();
                     throw new PostFixException("Insufficient operands for addition.");
                 }
                 operand1 = stack.top();
                 stack.pop();
                 if(stack.isEmpty())
                 {
+                    tokens.close();
                     throw new PostFixException("Insufficient operands for addition.");
                 }
                 operand2 = stack.top();
@@ -41,12 +43,14 @@ public class PostfixEvaluator {
             {
                 if(stack.isEmpty())
                 {
+                    tokens.close();
                     throw new PostFixException("Insufficient operands for addition.");
                 }
                 operand1 = stack.top();
                 stack.pop();
                 if(stack.isEmpty())
                 {
+                    tokens.close();
                     throw new PostFixException("Insufficient operands for addition.");
                 }
                 operand2 = stack.top();
@@ -57,12 +61,14 @@ public class PostfixEvaluator {
             {
                 if(stack.isEmpty())
                 {
+                    tokens.close();
                     throw new PostFixException("Insufficient operands for addition.");
                 }
                 operand1 = stack.top();
                 stack.pop();
                 if(stack.isEmpty())
                 {
+                    tokens.close();
                     throw new PostFixException("Insufficient operands for addition.");
                 }
                 operand2 = stack.top();
@@ -73,17 +79,20 @@ public class PostfixEvaluator {
             {
                 if(stack.isEmpty())
                 {
+                    tokens.close();
                     throw new PostFixException("Insufficient operands for addition.");
                 }
                 operand1 = stack.top();
                 stack.pop();
                 if(stack.isEmpty())
                 {
+                    tokens.close();
                     throw new PostFixException("Insufficient operands for addition.");
                 }
                 operand2 = stack.top();
                 if(operand1==0)
                 {
+                    tokens.close();
                     throw new ArithmeticException("Cannot divide by 0.");
                 }
                 stack.pop();
@@ -106,6 +115,6 @@ public class PostfixEvaluator {
 
         tokens.close();
         //throw new UnsupportedOperationException("TODO: implement postfix evaluation");
-        return -1;
+        return stack.top();
     }
 }
