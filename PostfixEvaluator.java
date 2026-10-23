@@ -13,16 +13,29 @@ public class PostfixEvaluator {
     public static int evaluate(String expression) {
         ArrayStack<Integer> stack = new ArrayStack<>(100);
         Scanner tokens = new Scanner(expression);
+        int operand1;
+        int operand2;
         tokens.useDelimiter(" ");
         while(tokens.hasNext());
         {
+            operand1 = 0;
+            operand2 = 0;
             String next = tokens.next();
             if(next.equals("+"))
             {
                 if(stack.isEmpty())
                 {
-                    throw PostFixException("Insufficient operands for addition.");
+                    throw new PostFixException("Insufficient operands for addition.");
                 }
+                operand1 = stack.top();
+                stack.pop();
+                if(stack.isEmpty())
+                {
+                    throw new PostFixException("Insufficient operands for addition.");
+                }
+                operand2 = stack.top();
+                stack.pop();
+                stack.push(operand1+operand2);
             }
             else if(next.equals("-"))
             {
@@ -53,6 +66,6 @@ public class PostfixEvaluator {
 
         tokens.close();
         //throw new UnsupportedOperationException("TODO: implement postfix evaluation");
-        return stack.pop();
+        return stack.top();
     }
 }
