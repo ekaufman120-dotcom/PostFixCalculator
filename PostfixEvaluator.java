@@ -18,6 +18,11 @@ public class PostfixEvaluator {
         int numberSymbols = 0;
         int numberNumbers = 0;
         tokens.useDelimiter(" ");
+        if(!tokens.hasNext())
+        {
+            tokens.close();
+            throw new PostFixException("No Expression");
+        }
         while(tokens.hasNext())
         {
             operand1 = 0;
