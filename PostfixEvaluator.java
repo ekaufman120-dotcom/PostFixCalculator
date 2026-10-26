@@ -15,14 +15,17 @@ public class PostfixEvaluator {
         Scanner tokens = new Scanner(expression);
         int operand1;
         int operand2;
+        int numberSymbols = 0;
+        int numberNumbers = 0;
         tokens.useDelimiter(" ");
-        while(tokens.hasNext());
+        while(tokens.hasNext())
         {
             operand1 = 0;
             operand2 = 0;
             String next = tokens.next();
             if(next.equals("+"))
             {
+                numberSymbols++;
                 if(stack.isEmpty())
                 {
                     tokens.close();
@@ -41,17 +44,18 @@ public class PostfixEvaluator {
             }
             else if(next.equals("-"))
             {
+                numberSymbols++;
                 if(stack.isEmpty())
                 {
                     tokens.close();
-                    throw new PostFixException("Insufficient operands for addition.");
+                    throw new PostFixException("Insufficient operands for subtraction.");
                 }
                 operand1 = stack.top();
                 stack.pop();
                 if(stack.isEmpty())
                 {
                     tokens.close();
-                    throw new PostFixException("Insufficient operands for addition.");
+                    throw new PostFixException("Insufficient operands for subtraction.");
                 }
                 operand2 = stack.top();
                 stack.pop();
@@ -59,17 +63,18 @@ public class PostfixEvaluator {
             }
             else if(next.equals("*"))
             {
+                numberSymbols++;
                 if(stack.isEmpty())
                 {
                     tokens.close();
-                    throw new PostFixException("Insufficient operands for addition.");
+                    throw new PostFixException("Insufficient operands for multiplication.");
                 }
                 operand1 = stack.top();
                 stack.pop();
                 if(stack.isEmpty())
                 {
                     tokens.close();
-                    throw new PostFixException("Insufficient operands for addition.");
+                    throw new PostFixException("Insufficient operands for multiplication.");
                 }
                 operand2 = stack.top();
                 stack.pop();
@@ -77,17 +82,18 @@ public class PostfixEvaluator {
             }
             else if(next.equals("/"))
             {
+                numberSymbols++;
                 if(stack.isEmpty())
                 {
                     tokens.close();
-                    throw new PostFixException("Insufficient operands for addition.");
+                    throw new PostFixException("Insufficient operands for division.");
                 }
                 operand1 = stack.top();
                 stack.pop();
                 if(stack.isEmpty())
                 {
                     tokens.close();
-                    throw new PostFixException("Insufficient operands for addition.");
+                    throw new PostFixException("Insufficient operands for division.");
                 }
                 operand2 = stack.top();
                 if(operand1==0)
@@ -100,7 +106,18 @@ public class PostfixEvaluator {
             }
             else
             {
-                stack.push(Integer.parseInt(next));
+                try{
+                    stack.push(Integer.parseInt(next));
+                    numberNumbers++;
+                }
+                catch(NumberFormatException e)
+                {
+                    if(!e.getMessage().contains("For input string: \"\""))
+                    {
+                        tokens.close();
+                        throw new PostFixException("Message written incorrectly, try again!");
+                    }
+                }
             }
         }
         // TODO 1: Process tokens one at a time.
@@ -115,6 +132,8 @@ public class PostfixEvaluator {
 
         tokens.close();
         //throw new UnsupportedOperationException("TODO: implement postfix evaluation");
-        return stack.top();
+        if(numberNumbers==numberSymbols+1)
+            return stack.top();
+        throw new PostFixException("Not enough operators.");
     }
 }
